@@ -17,6 +17,7 @@ public class HUD implements Disposable{
 	private Viewport viewport;
 	
 	private Integer worldTimer;
+	private float timerCount;
 	private Integer health;
 	private Integer fuel; 
 	private float weapon1;
@@ -65,8 +66,10 @@ public class HUD implements Disposable{
 		worldLabel = new Label("Mars", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		characterNameLabel = new Label("Unknown", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+		
 		weapon1Label = new Label("Primary", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		weapon2Label = new Label("Secondary", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+		
 		inventory1Label = new Label("Item 1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		inventory2Label = new Label("Item 2", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		inventory3Label = new Label("Item 3", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -85,6 +88,19 @@ public class HUD implements Disposable{
 		table.add(countdownLabel).expandX();
 		
 		stage.addActor(table);
+	}
+	
+	public void update(float dt) {
+		timerCount += dt;
+		if (timerCount >= 1) {
+			worldTimer--;
+			countdownLabel.setText(String.format("%03d", worldTimer));
+			timerCount = 0;
+		}
+	}
+	
+	public void addScore(int value) {
+		
 	}
 	
 	public void dispose() {
