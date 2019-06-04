@@ -19,11 +19,14 @@ public class Mario extends Sprite {
 	public enum State {FALLING, JUMPING, STANDING, RUNNING };
 	public State currentState;
 	public State previousState;
+	
 	public World world;
 	public Body b2body;
+	
 	private TextureRegion marioStand;
 	private Animation marioRun;
 	private Animation marioJump;
+	
 	private float stateTimer;
 	private boolean runningRight;
 	
@@ -110,7 +113,7 @@ public class Mario extends Sprite {
 		
 		FixtureDef fdef = new FixtureDef();
 		CircleShape shape = new CircleShape();
-		shape.setRadius(7 / Orbit.PPM);
+		shape.setRadius(6 / Orbit.PPM);
 		fdef.filter.categoryBits = Orbit.MARIO_BIT;
 		fdef.filter.maskBits = Orbit.DEFAULT_BIT | Orbit.COIN_BIT | Orbit.BRICK_BIT;
 		

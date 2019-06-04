@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -32,6 +33,7 @@ import Tools.WorldContactListener;
 
 public class PlayScreen implements Screen{
 	private Orbit game;
+	private TextureAtlas atlas;
 	
 	private OrthographicCamera gamecam;
 	private Viewport gamePort;
@@ -48,6 +50,8 @@ public class PlayScreen implements Screen{
 	private Mario player;
 	
 	public PlayScreen(Orbit game) {
+		atlas = new TextureAtlas("Mario_and_Enemies.pack");
+		
 		this.game = game;
 		
 		gamecam = new OrthographicCamera();
@@ -66,8 +70,8 @@ public class PlayScreen implements Screen{
 		b2dr = new Box2DDebugRenderer();
 		
 		new B2WorldCreator(world, map);
-		
-		player = new Mario(world);
+	
+		player = new Mario(world, this);
 		
 		world.setContactListener(new WorldContactListener());
 	}
@@ -98,6 +102,11 @@ public class PlayScreen implements Screen{
 		
 		gamecam.update();
 		renderer.setView(gamecam);
+	}
+	
+	public TextureAtlas getAtlas() {
+		// TODO Auto-generated method stub
+		return atlas;
 	}
 	
 	@Override
@@ -149,5 +158,4 @@ public class PlayScreen implements Screen{
 		b2dr.dispose();
 		hud.dispose();
 	}
-
 }
